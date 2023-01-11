@@ -1,0 +1,31 @@
+name: Test and Deploy Workflow 
+on: push
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get code
+        uses: actions/checkout@v3
+      - name: update node
+        uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+      - name: setup dependencies 
+        run: npm ci 
+      - name: run tests
+        run: npm test
+  deploy-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Update Node
+        uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+      - name: Setup Dependencies 
+        run: npm ci 
+      - name: Build
+        run: npm run Build
+      - name: Deploy
+        run: echo "Deploying"
